@@ -1,0 +1,80 @@
+/* themes.css — temas compartidos por tutorial.html y graph.html.
+   ARCHIVO TUYO: build_docs.py lo crea una vez y NO lo sobreescribe.
+
+   Un tema = un bloque [data-theme="nombre"] que redefine tokens. Al añadir uno, regenera
+   (tools/build_docs.py / build_graph_html.py) y aparece solo en el selector de ambas páginas.
+
+   TOKENS DE CHROME (color sólido o degradado en --bg/--side/--card):
+     --bg  fondo · --fg texto · --mut texto tenue · --line bordes
+     --accent marca/enlaces · --side sidebar/paneles · --card tarjetas · --code code/badges
+   TOKENS POR TIPO DE NODO (color de cada capa; los lee el grafo y las tarjetas del tutorial):
+     --t-architecture --t-rule --t-convention --t-entity --t-flow --t-pattern
+     --t-anti_pattern --t-troubleshooting --t-decision --t-example --t-suite
+
+   AVANZADO: --bg/--side/--card aceptan degradados (son 'background'). Para patrones/imágenes/iconos,
+   sobrescribe un componente: [data-theme="x"] body{...}. Ver ejemplos comentados al final. */
+
+/* ===== LIGHT (default) ===== */
+[data-theme="light"]{
+  --bg:#fff; --fg:#1c1f26; --mut:#5b6472; --line:#e6e8ee;
+  --accent:#2f6fed; --side:#f7f8fa; --card:#fff; --code:#eef1f6;
+  --t-architecture:#888780; --t-rule:#D4537E; --t-convention:#7F77DD; --t-entity:#378ADD;
+  --t-flow:#639922; --t-pattern:#BA7517; --t-anti_pattern:#E24B4A; --t-troubleshooting:#D85A30;
+  --t-decision:#1D9E75; --t-example:#B4B2A9; --t-suite:#534AB7;
+}
+
+/* ===== DARK ===== */
+[data-theme="dark"]{
+  --bg:#0f1115; --fg:#e6e9ef; --mut:#8b93a7; --line:#272c37;
+  --accent:#6ea8fe; --side:#171a21; --card:#171a21; --code:#1c2130;
+  --t-architecture:#9aa0a6; --t-rule:#f06292; --t-convention:#ba68c8; --t-entity:#4fc3f7;
+  --t-flow:#66bb6a; --t-pattern:#ffb74d; --t-anti_pattern:#ef5350; --t-troubleshooting:#ff8a65;
+  --t-decision:#fff176; --t-example:#a1887f; --t-suite:#7e57c2;
+}
+[data-theme="dark"] .pbox{background:#16233f;border-color:#2b4a86;color:#cdddff}
+[data-theme="dark"] .note{background:#2a2410;border-color:#5a4d1f;color:#f0e4b8}
+[data-theme="dark"] .rin b{color:#c084fc}
+
+/* ===== SEPIA ===== */
+[data-theme="sepia"]{
+  --bg:#f4ecd8; --fg:#43381f; --mut:#7a6a48; --line:#e0d4b8;
+  --accent:#9a6a1f; --side:#efe5cc; --card:#fbf5e6; --code:#eaddc0;
+  --t-architecture:#888780; --t-rule:#D4537E; --t-convention:#7F77DD; --t-entity:#2f6f9e;
+  --t-flow:#639922; --t-pattern:#9a6a1f; --t-anti_pattern:#c0392b; --t-troubleshooting:#b05a20;
+  --t-decision:#1d7a5e; --t-example:#9a8a68; --t-suite:#5a4aa0;
+}
+
+/* ===== AURORA (demo avanzado: degradado de fondo) ===== */
+[data-theme="aurora"]{
+  --bg:#0b1020; --fg:#e8ecff; --mut:#9aa6d6; --line:#23305a;
+  --accent:#7c5cff; --side:#10183a; --card:#141d44; --code:#1a2550;
+  --t-architecture:#9aa0a6; --t-rule:#ff6fae; --t-convention:#b39dff; --t-entity:#4fd0ff;
+  --t-flow:#66e0a3; --t-pattern:#ffc861; --t-anti_pattern:#ff6b6b; --t-troubleshooting:#ffa06b;
+  --t-decision:#fff07a; --t-example:#b0a0c0; --t-suite:#9d7cff;
+}
+/* el degradado va en 'body': lo ve el tutorial y se transparenta tras el canvas del grafo */
+[data-theme="aurora"] body{
+  background:radial-gradient(circle at 15% -10%, #1c2a6b 0, transparent 45%),
+            linear-gradient(160deg, #0b1020, #141a3a 55%, #0b1020);
+  background-attachment:fixed;
+}
+
+/* ===== EJEMPLOS AVANZADOS (descomenta y adapta) =====
+   1) Degradado en tarjetas:
+      [data-theme="dark"] .card{ background:linear-gradient(160deg,#171a21,#1d2330); }
+
+   2) Patrón de rayas en la barra lateral (solo CSS, sin imagen):
+      [data-theme="dark"] #side{ background-image:repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0 6px, transparent 6px 12px); }
+
+   3) Imagen/logo como icono junto al título del sidebar:
+      [data-theme="dark"] #side h1{ background:url('logo.svg') left center/18px no-repeat; padding-left:24px; }
+
+   4) Icono SVG embebido (data-URI) antes de cada título de sección del tutorial:
+      [data-theme="dark"] section.doc>h2::before{
+        content:""; display:inline-block; width:16px; height:16px; margin-right:8px; vertical-align:-2px;
+        background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%236ea8fe" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>') center/contain no-repeat;
+      }
+
+   5) Textura de imagen de fondo (coloca el archivo junto a este themes.css):
+      [data-theme="dark"] body{ background:var(--bg) url('textura.png') repeat; }
+*/
